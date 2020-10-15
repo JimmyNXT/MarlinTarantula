@@ -285,7 +285,7 @@
  * Enable this if your E0 heater port is not working and you wish to use the E1 heater port.
  * NOTE: Can NOT be used with dual nozzles. Works only on RAMPS based boards (such as MKS boards)
  */
-#define HOTEND_USE_E1
+//#define HOTEND_USE_E1
 
 /*
  ************************ END OF EASY CONFIG ****************************

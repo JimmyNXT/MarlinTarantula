@@ -28,7 +28,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "JimmyNXT"
+//#define SHORT_BUILD_VERSION "JimmyNXT"
 
 /**
  * Verbose version identifier which should contain a reference to the location
