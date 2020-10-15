@@ -23,9 +23,15 @@
 #pragma once
 
 // 100k bed thermistor with a 10K pull-up resistor - made by $ buildroot/share/scripts/createTemperatureLookupMarlin.py --rp=10000
-//My custom Table
+// My custom Temps
 
 const temp_entry_t temptable_99[] PROGMEM = {
+  { OV(   1), 278 },
+  { OV(   3), 274 },
+  { OV(   5), 270 },
+  { OV(   7), 266 },
+  { OV(  11), 262 },
+  { OV(  15), 258 },
   { OV(  19), 254 },
   { OV(  21), 250 },
   { OV(  25), 246 },
@@ -82,6 +88,10 @@ const temp_entry_t temptable_99[] PROGMEM = {
   { OV( 954),  33 },
   { OV( 966),  29 },
   { OV( 977),  25 },
-  { OV( 982),  23 }
+  { OV( 982),  23 },
+  { OV(1000),  20 },
+  { OV(1020),  17 },
+  { OV(1040),  15 },
+  { OV(1050),  10 }
 };
 
