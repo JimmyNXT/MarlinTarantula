@@ -17,7 +17,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #ifdef ARDUINO_ARCH_SAM
@@ -53,6 +53,7 @@
  * per page. We can't emulate EE endurance with FLASH for all
  * bytes, but we can emulate endurance for a given percent of
  * bytes.
+ *
  */
 
 //#define EE_EMU_DEBUG
@@ -60,7 +61,7 @@
 #define EEPROMSize     4096
 #define PagesPerGroup   128
 #define GroupCount        2
-#define PageSize        256U
+#define PageSize        256u
 
  /* Flash storage */
 typedef struct FLASH_SECTOR {
@@ -992,7 +993,7 @@ bool PersistentStore::write_data(int &pos, const uint8_t *value, size_t size, ui
     crc16(crc, &v, 1);
     pos++;
     value++;
-  }
+  };
   return false;
 }
 

@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -231,13 +231,6 @@ bool Sd2Card::eraseSingleBlockEnable() {
  * The reason for failure can be determined by calling errorCode() and errorData().
  */
 bool Sd2Card::init(const uint8_t sckRateID, const pin_t chipSelectPin) {
-  #if IS_TEENSY_35_36 || IS_TEENSY_40_41
-    chipSelectPin_ = BUILTIN_SDCARD;
-    const uint8_t ret = SDHC_CardInit();
-    type_ = SDHC_CardGetType();
-    return (ret == 0);
-  #endif
-
   errorCode_ = type_ = 0;
   chipSelectPin_ = chipSelectPin;
   // 16-bit init start time allows over a minute
@@ -247,15 +240,8 @@ bool Sd2Card::init(const uint8_t sckRateID, const pin_t chipSelectPin) {
   watchdog_refresh(); // In case init takes too long
 
   // Set pin modes
-  #if ENABLED(ZONESTAR_12864OLED)
-    if (chipSelectPin_ != DOGLCD_CS) {
-      SET_OUTPUT(DOGLCD_CS);
-      WRITE(DOGLCD_CS, HIGH);
-    }
-  #else
-    extDigitalWrite(chipSelectPin_, HIGH);  // For some CPUs pinMode can write the wrong data so init desired data value first
-    pinMode(chipSelectPin_, OUTPUT);        // Solution for #8746 by @benlye
-  #endif
+  extDigitalWrite(chipSelectPin_, HIGH);  // For some CPUs pinMode can write the wrong data so init desired data value first
+  pinMode(chipSelectPin_, OUTPUT);        // Solution for #8746 by @benlye
   spiBegin();
 
   // Set SCK rate for initialization commands
@@ -339,10 +325,6 @@ bool Sd2Card::init(const uint8_t sckRateID, const pin_t chipSelectPin) {
  * \return true for success, false for failure.
  */
 bool Sd2Card::readBlock(uint32_t blockNumber, uint8_t* dst) {
-  #if IS_TEENSY_35_36 || IS_TEENSY_40_41
-    return 0 == SDHC_CardReadBlock(dst, blockNumber);
-  #endif
-
   if (type() != SD_CARD_TYPE_SDHC) blockNumber <<= 9;   // Use address if not SDHC card
 
   #if ENABLED(SD_CHECK_AND_RETRY)
@@ -557,10 +539,6 @@ bool Sd2Card::waitNotBusy(const millis_t timeout_ms) {
  */
 bool Sd2Card::writeBlock(uint32_t blockNumber, const uint8_t* src) {
   if (ENABLED(SDCARD_READONLY)) return false;
-
-  #if IS_TEENSY_35_36 || IS_TEENSY_40_41
-    return 0 == SDHC_CardWriteBlock(src, blockNumber);
-  #endif
 
   bool success = false;
   if (type() != SD_CARD_TYPE_SDHC) blockNumber <<= 9;   // Use address if not SDHC card

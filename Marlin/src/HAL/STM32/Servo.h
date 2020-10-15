@@ -17,7 +17,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #pragma once
@@ -41,7 +41,6 @@ class libServo {
 
     static void pause_all_servos();
     static void resume_all_servos();
-    static void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority);
 
   private:
     Servo stm32_servo;
